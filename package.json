@@ -1,0 +1,36 @@
+{
+  "name": "validation-form-assignment-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./src",
+    "build:db": "node ./src/db/build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shamskhodary/Validation-Form-Assignment-2.git"
+  },
+  "author": "shams",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shamskhodary/Validation-Form-Assignment-2/issues"
+  },
+  "homepage": "https://github.com/shamskhodary/Validation-Form-Assignment-2#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.2",
+    "joi": "^17.6.1",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.8.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.28.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
