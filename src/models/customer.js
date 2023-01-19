@@ -3,6 +3,11 @@ const { DataTypes } = require('sequelize');
 
 
 const Customer = sequelize.define('Customer', {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true
+  },
   email: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -21,7 +26,7 @@ const Customer = sequelize.define('Customer', {
     allowNull: false,
   },
   phoneNumber: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   birthDate: {
@@ -36,7 +41,7 @@ const Customer = sequelize.define('Customer', {
     type: DataTypes.STRING,
   },
   taxId: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.INTEGER,
   },
   type: {
     type: DataTypes.ENUM('individual', 'business'),
