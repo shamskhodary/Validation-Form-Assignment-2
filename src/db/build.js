@@ -1,7 +1,8 @@
+const Customer = require("../models/customer");
 const sequelize = require("./connection");
 
 const build = async () => {
-  await sequelize.sync({ force: true });
+  await Customer.sync({ force: true });
 };
 
 build()
