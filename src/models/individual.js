@@ -1,7 +1,7 @@
 const sequelize = require('../db/connection');
 const { DataTypes } = require('sequelize');
 
-const individual = sequelize.define('individual', {
+const Individual = sequelize.define('individual', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -9,4 +9,4 @@ const individual = sequelize.define('individual', {
   },
 });
 
-module.exports = individual;
+module.exports = Individual;
