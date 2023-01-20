@@ -59,6 +59,7 @@ const IndividualForm: FC<{ setShow: Function; setStatus: Function, type:string }
         }
         
       } catch (error:any) {
+        console.log(error);
         Swal.fire({
           position: 'center',
           icon: 'success',
