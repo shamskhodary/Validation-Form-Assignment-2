@@ -7,6 +7,15 @@ const Business = sequelize.define('business', {
     autoIncrement: true,
     primaryKey: true
   },
+  companyName: {
+    type: DataTypes.STRING,
+  },
+  taxId: {
+    type: DataTypes.INTEGER,
+  },
+  customerId: {
+    type: DataTypes.INTEGER,
+  }
 });
 
 module.exports = Business;

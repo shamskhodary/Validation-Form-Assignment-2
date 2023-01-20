@@ -1,9 +1,6 @@
 const joi = require("joi");
 
-const businessValidation = (data) => {
-  const date = new Date();
-  const validDate = date.setFullYear(date.getFullYear() - 18)
-
+const userValidate = (data) => {
   const schema = joi.object({
     email: joi
       .string()
@@ -20,13 +17,15 @@ const businessValidation = (data) => {
     address: joi.string().required(),
     phoneNumber: joi.number().required(),
     gender: joi.string().valid("male", "female").required(),
-    birthDate: joi.date().min(validDate).required().message({ " any.required": "You must be over 18 years" }),
-    companyName: joi.string().required(),
-    taxId: joi.number().required(),
+    birthDate: joi.date().required(),
     type: joi.string().valid("business", "individual").required(),
   });
 
   return schema.validateAsync(data);
 };
 
-module.exports = businessValidation;
+module.exports = userValidate;
+
+
+// companyName: joi.string().required(),
+// taxId: joi.number().required(),

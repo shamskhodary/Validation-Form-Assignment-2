@@ -1,12 +1,11 @@
-const sequelize = require('../db/connection');
-const { DataTypes } = require('sequelize');
+const sequelize = require("../db/connection");
+const { DataTypes } = require("sequelize");
 
-
-const Customer = sequelize.define('Customer', {
+const Customer = sequelize.define("Customer", {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
-    primaryKey: true
+    primaryKey: true,
   },
   email: {
     type: DataTypes.STRING,
@@ -34,20 +33,13 @@ const Customer = sequelize.define('Customer', {
     allowNull: false,
   },
   gender: {
-    type: DataTypes.ENUM('male', 'female'),
+    type: DataTypes.ENUM("male", "female"),
     allowNull: false,
-  },
-  companyName: {
-    type: DataTypes.STRING,
-  },
-  taxId: {
-    type: DataTypes.INTEGER,
   },
   type: {
-    type: DataTypes.ENUM('individual', 'business'),
+    type: DataTypes.ENUM("individual", "business"),
     allowNull: false,
   },
-})
-
+});
 
 module.exports = Customer;
