@@ -25,7 +25,3 @@ const userValidate = (data) => {
 };
 
 module.exports = userValidate;
-
-
-// companyName: joi.string().required(),
-// taxId: joi.number().required(),
