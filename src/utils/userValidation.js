@@ -16,7 +16,7 @@ const userValidate = (data) => {
     lastName: joi.string().required(),
     address: joi.string().required(),
     phoneNumber: joi.number().required(),
-    gender: joi.string().valid("male", "female").required(),
+    gender: joi.string().valid("male", "female", "other").required(),
     birthDate: joi.date().required(),
     type: joi.string().valid("business", "individual").required(),
   });

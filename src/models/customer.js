@@ -33,7 +33,7 @@ const Customer = sequelize.define("Customer", {
     allowNull: false,
   },
   gender: {
-    type: DataTypes.ENUM("male", "female"),
+    type: DataTypes.ENUM("male", "female", "other"),
     allowNull: false,
   },
   type: {
