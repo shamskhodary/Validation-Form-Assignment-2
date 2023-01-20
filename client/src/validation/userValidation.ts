@@ -13,7 +13,7 @@ const individualSchema = yup.object().shape({
     new Date((new Date().getFullYear() - 18), new Date().getMonth(), new Date().getDate()),
     'You should be at least 18 years old'
   ),
-  gender: yup.string().required('You must hoose your gender').oneOf(['male', 'female', 'other']),
+  gender: yup.string().required('You must choose your gender').oneOf(['male', 'female', 'other']),
 });
 
 export default individualSchema;
