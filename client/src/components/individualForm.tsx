@@ -1,6 +1,8 @@
 import { FC } from "react";
 import { Form, Input, Button, DatePicker, Select, Typography } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
+import validationSchema from '../validation/userValidation'
+import { useFormik } from "formik";
 const { Option } = Select;
 const { Title } = Typography;
 
@@ -12,8 +14,26 @@ const prefixSelector = (
     </Select>
   </Form.Item>
 );
-
-const IndividualForm:FC<{setShow: Function, setStatus: Function}> = ({setShow, setStatus}) => {
+const initialValues = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+  address: "",
+  phoneNumber: 0,
+  gender: "",
+  birthDate: "",
+};
+const formik = useFormik({
+  initialValues,
+  validationSchema,
+  onSubmit: () => {},
+});
+const IndividualForm: FC<{ setShow: Function; setStatus: Function }> = ({
+  setShow,
+  setStatus,
+}) => {
   return (
     <div className="individual">
       <Title level={4} style={{ margin: 0, padding: "0.5rem 0" }}>
@@ -101,7 +121,7 @@ const IndividualForm:FC<{setShow: Function, setStatus: Function}> = ({setShow, s
               <Option value="other">Other</Option>
             </Select>
           </Form.Item>
-          <Form.Item label="DatePicker">
+          <Form.Item label="BirthDate" name="birthDate">
             <DatePicker />
           </Form.Item>
 
@@ -127,8 +147,9 @@ const IndividualForm:FC<{setShow: Function, setStatus: Function}> = ({setShow, s
             bottom: "6rem",
             fontSize: "1rem",
           }}
-          onClick={() => {setShow(true) 
-            setStatus("")
+          onClick={() => {
+            setShow(true);
+            setStatus("");
           }}
         />
       </Form>
