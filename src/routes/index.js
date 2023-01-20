@@ -1,9 +1,8 @@
-const router = require('express').Router();
+const registerIndividual = require("../controllers/registerIndividual");
+const checkType = require("../middleware/checkType");
 
-// router.get('/', (req, res) => {
-//   res.send('hello world')
-// })
+const router = require("express").Router();
 
-router.post('/customer')
+router.post("/customer", checkType, registerIndividual);
 
 module.exports = router;
