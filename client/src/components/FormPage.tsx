@@ -62,7 +62,7 @@ const FormPage: FC = () => {
           </div>
         </div>
       )}
-      {status === "individual" && <IndividualForm setShow={setShow} setStatus={setStatus} />}
+      {status === "individual" && <IndividualForm setShow={setShow} setStatus={setStatus} type={status} />}
       {status === "company" && <CompanyForm setShow={setShow} setStatus={setStatus}/>}
     </div>
   );
