@@ -5,7 +5,7 @@ const Customer = require("../models/customer");
 const createBusinessQuery = require("../db/queries/createBusinessQuery");
 const businessValidate = require("../utils/businessValidate");
 
-const registerIndividual = async (req, res, next) => {
+const registerIndividual = async (req, res) => {
   try {
     const {
       email,
@@ -82,7 +82,9 @@ const registerIndividual = async (req, res, next) => {
       res.json({ message: error.details[0].message });
     }
 
-    next(error);
+    res.status(error.status || 500).json({
+      error: error.message
+    });
   }
 };
 

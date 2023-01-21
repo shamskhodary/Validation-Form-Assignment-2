@@ -1,8 +1,7 @@
-const registerIndividual = require("../controllers/registerIndividual");
-const checkType = require("../middleware/checkType");
+const registerIndividual = require("../controllers/register");
 
 const router = require("express").Router();
 
-router.post("/customer", checkType, registerIndividual);
+router.post("/register", registerIndividual);
 
 module.exports = router;
