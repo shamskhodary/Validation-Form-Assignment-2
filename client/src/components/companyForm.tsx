@@ -49,11 +49,11 @@ const CompanyForm:FC<ICompanyForm> = ({setShow, setStatus, type}) => {
     validationSchema:businessSchema,
     onSubmit: async(values, {setSubmitting}) =>{
       values.type = type
-      console.log(values.type);
+
       try {
         if(values.type){
           const response = await axios.post("/api/v1/register", { ...values });
-          if(response.data){
+          if(response.status === 200){
             setSubmitting(false)
             Swal.fire({
               position: 'center',
@@ -67,10 +67,9 @@ const CompanyForm:FC<ICompanyForm> = ({setShow, setStatus, type}) => {
         
       } catch (error:any) {
         Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: error.response.data,
-          showConfirmButton: false,
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.error,
           timer: 2500
         })
       }

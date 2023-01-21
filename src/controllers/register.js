@@ -81,9 +81,10 @@ const registerIndividual = async (req, res) => {
     if (error.name === "ValidationError") {
       res.json({ message: error.details[0].message });
     }
-    if (error) {
-      res.json({ message: error.message });
-    }
+
+    res.status(error.status || 500).json({
+      error: error.message
+    });
   }
 };
 

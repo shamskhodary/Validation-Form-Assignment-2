@@ -52,7 +52,7 @@ const IndividualForm: FC<IIndividualForm> = ({
       try {
         if(values.type){
           const response = await axios.post("/api/v1/register", { ...values });
-          if(response.data){
+          if(response.status === 200){
             setSubmitting(false)
             Swal.fire({
               position: 'center',
@@ -66,10 +66,9 @@ const IndividualForm: FC<IIndividualForm> = ({
         
       } catch (error:any) {
         Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: error.response.data,
-          showConfirmButton: false,
+          icon: 'error',
+          title: 'Oops...',
+          text: error.response.data.error,
           timer: 2500
         })
       }
