@@ -18,7 +18,13 @@ const prefixSelector = (
   </Form.Item>
 );
 
-const IndividualForm: FC<{ setShow: Function; setStatus: Function, type:string }> = ({
+ interface IIndividualForm {
+  setShow: Function;
+  setStatus: Function;
+  type:string;
+}
+
+const IndividualForm: FC<IIndividualForm> = ({
   setShow,
   setStatus,
   type
@@ -59,7 +65,6 @@ const IndividualForm: FC<{ setShow: Function; setStatus: Function, type:string }
         }
         
       } catch (error:any) {
-        console.log(error);
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -120,8 +125,7 @@ const IndividualForm: FC<{ setShow: Function; setStatus: Function, type:string }
         </Form.Item>
         <Form.Item name="password" label="Password"
            validateStatus={formik.touched.password && formik.errors.password ? 'error' : 'success'}
-           help={formik.touched.password && formik.errors.password}
-         hasFeedback>
+           help={formik.touched.password && formik.errors.password}>
           <Input.Password
             onChange={(e) => formik.setFieldValue('password', e.target.value)}
             value={formik.values.password}
@@ -136,7 +140,6 @@ const IndividualForm: FC<{ setShow: Function; setStatus: Function, type:string }
           dependencies={["password"]}
           validateStatus={formik.touched.confirmPassword && formik.errors.confirmPassword ? 'error' : 'success'}
           help={formik.touched.confirmPassword && formik.errors.confirmPassword}
-          hasFeedback
         >
           <Input.Password
             onChange={(e) => formik.setFieldValue('confirmPassword', e.target.value)}
