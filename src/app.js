@@ -13,16 +13,15 @@ app.use(compression());
 app.use(cors());
 app.use("/api/v1", router);
 
-// const conn = async () => {
-//   try {
-//     await sequelize.authenticate();
-//     console.log('Connection has been established successfully.');
+app.use((req, res, next) => {
+  res.status(404).json({ message: 'Not found' });
+});
 
-//   } catch (error) {
-//     console.error('Unable to connect to the database:', error);
-//   }
-// }
-
-// conn()
+app.use((err, req, res, next) => {
+  res.status(err.status || 500).json({
+    message: err.message || "Something went wrong",
+    status: err.status || 500,
+  });
+});
 
 module.exports = app;

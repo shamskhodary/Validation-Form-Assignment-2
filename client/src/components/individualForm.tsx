@@ -38,7 +38,7 @@ const IndividualForm: FC<IIndividualForm> = ({
     password: "",
     confirmPassword: "",
     address: "",
-    phoneNumber: 0,
+    phoneNumber: "",
     gender: "",
     birthDate: "",
     type: type,
@@ -47,7 +47,7 @@ const IndividualForm: FC<IIndividualForm> = ({
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: async(values, { setSubmitting }) => {
+    onSubmit: async(values, { setSubmitting, resetForm}) => {
       values.type = type;
       try {
         if(values.type){
@@ -96,7 +96,7 @@ const IndividualForm: FC<IIndividualForm> = ({
             value={formik.values.firstName}
             onBlurCapture={formik.handleBlur}
             onBlur={()=>{setIsValid(Object.values(formik.errors).every(val => val === undefined))}}
-            style={{borderColor: formik.errors.firstName ? "red": "green"}}
+            style={{borderColor: !formik.touched.firstName ? "" : formik.touched.firstName && formik.errors.firstName ? "red": "green"}}
           />
         </Form.Item>
         <Form.Item label="LastName" name="lastName"
@@ -107,7 +107,7 @@ const IndividualForm: FC<IIndividualForm> = ({
             value={formik.values.lastName}
             onBlurCapture={formik.handleBlur}
             onBlur={()=>{setIsValid(Object.values(formik.errors).every(val => val === undefined))}}
-            style={{borderColor: formik.errors.lastName ? "red": "green"}}
+            style={{borderColor: !formik.touched.lastName ? "" :formik.touched.lastName && formik.errors.lastName ? "red": "green"}}
 
           />
         </Form.Item>
@@ -119,7 +119,7 @@ const IndividualForm: FC<IIndividualForm> = ({
             value={formik.values.email}
             onBlurCapture={formik.handleBlur}
             onBlur={()=>{setIsValid(Object.values(formik.errors).every(val => val === undefined))}}
-            style={{borderColor:  formik.errors.email ? "red": "green"}}
+            style={{borderColor: !formik.touched.email ? "" : formik.touched.email && formik.errors.email ? "red": "green"}}
           />
         </Form.Item>
         <Form.Item name="password" label="Password"
@@ -130,7 +130,7 @@ const IndividualForm: FC<IIndividualForm> = ({
             value={formik.values.password}
             onBlurCapture={formik.handleBlur}
             onBlur={()=>{setIsValid(Object.values(formik.errors).every(val => val === undefined))}}
-            style={{borderColor: formik.errors.password ? "red": "green"}}
+            style={{borderColor:!formik.touched.password ? "" :formik.touched.password && formik.errors.password ? "red": "green"}}
           />
         </Form.Item>
         <Form.Item
@@ -145,7 +145,7 @@ const IndividualForm: FC<IIndividualForm> = ({
             value={formik.values.confirmPassword}
             onBlurCapture={formik.handleBlur}
             onBlur={()=>{setIsValid(Object.values(formik.errors).every(val => val === undefined))}}
-            style={{borderColor: formik.errors.confirmPassword ? "red": "green"}}
+            style={{borderColor:!formik.touched.confirmPassword ? "" :formik.touched.confirmPassword && formik.errors.confirmPassword ? "red": "green"}}
           />
         </Form.Item>
         <Form.Item label="Address" name="address"
@@ -156,51 +156,118 @@ const IndividualForm: FC<IIndividualForm> = ({
             value={formik.values.address}
             onBlurCapture={formik.handleBlur}
             onBlur={()=>{setIsValid(Object.values(formik.errors).every(val => val === undefined))}}
-            style={{borderColor: formik.errors.address ? "red": "green"}}
+            style={{borderColor:!formik.touched.address ? "" :formik.touched.address && formik.errors.address ? "red": "green"}}
           />
         </Form.Item>
 
         <div className="info">
-          <Form.Item name="gender" label="Gender"    
-          validateStatus={formik.touched.gender && formik.errors.gender ? 'error' : 'success'}
-          help={formik.touched.gender && formik.errors.gender}>
-            <Select
-              placeholder="select your gender"
-              onChange={(gender: string) =>
-                formik.setFieldValue("gender", gender)
+          <div className="message">
+            <Form.Item
+             style={{marginBottom:'0', padding: '0'}}
+              name="gender"
+              label="Gender"
+              validateStatus={
+                formik.touched.gender && formik.errors.gender
+                  ? "error"
+                  : "success"
               }
-              value={formik.values.gender}
-              style={{borderColor: formik.errors.gender ? "red": "green"}}
             >
-              <Option value="male">Male</Option>
-              <Option value="female">Female</Option>
-              <Option value="other">Other</Option>
-            </Select>
-          </Form.Item>
-          <Form.Item label="BirthDate" name="birthDate"
-             validateStatus={formik.touched.birthDate && formik.errors.birthDate ? 'error' : 'success'}
-             help={formik.touched.birthDate && formik.errors.birthDate}>
-            <DatePicker
-            value={dayjs(formik.values.birthDate)} 
-            onChange={(date, dateString) => formik.setFieldValue('birthDate', dateString)}
-            style={{borderColor: formik.errors.birthDate? "red": "green"}}
-            />
-          </Form.Item>
+              <Select
+                placeholder="select your gender"
+                onChange={(gender: string) =>
+                  formik.setFieldValue("gender", gender)
+                }
+                value={formik.values.gender}
+                style={{
+                  borderColor: !formik.touched.gender
+                    ? ""
+                    : formik.touched.gender && formik.errors.gender
+                    ? "red"
+                    : "green",
+                }}
+              >
+                <Option value="male">Male</Option>
+                <Option value="female">Female</Option>
+                <Option value="other">Other</Option>
+              </Select>
+            </Form.Item>
+            {formik.errors.gender && (
+              <div style={{ color: "red" }}>{formik.errors.gender}</div>
+            )}
+          </div>
+          <div className="message">
+            <Form.Item
+            style={{marginBottom:'0', padding: '0'}}
+              label="BirthDate"
+              name="birthDate"
+              validateStatus={
+                formik.touched.birthDate && formik.errors.birthDate
+                  ? "error"
+                  : "success"
+              }
+            >
+              <DatePicker
+                value={dayjs(formik.values.birthDate)}
+                onChange={(date, dateString) =>
+                  formik.setFieldValue("birthDate", dateString)
+                }
+                style={{
+                  borderColor: !formik.touched.birthDate
+                    ? ""
+                    : formik.errors.birthDate
+                    ? "red"
+                    : "green",
+                }}
+              />
+            </Form.Item>
+            { formik.errors.birthDate && (
+              <div style={{ color: "red" }}>{formik.errors.birthDate}</div>
+            )}
+          </div>
 
-          <Form.Item name="phoneNumber" label="Phone Number"
-             validateStatus={formik.touched.phoneNumber && formik.errors.phoneNumber ? 'error' : 'success'}
-             help={formik.touched.phoneNumber && formik.errors.phoneNumber}>
-            <Input
-              addonBefore={prefixSelector}
-              onChange={(e) => formik.setFieldValue('phoneNumber', e.target.value)}
-              value={formik.values.phoneNumber}
-              onBlurCapture={formik.handleBlur}
-              onBlur={()=>{setIsValid(Object.values(formik.errors).every(val => val === undefined))}}
-              style={{borderColor: formik.errors.phoneNumber ? "red": "green"}}
-            />
-          </Form.Item>
+          <div className="message">
+            <Form.Item
+             style={{marginBottom:'0', padding: '0'}}
+              name="phoneNumber"
+              label="Phone Number"
+              validateStatus={
+                formik.touched.phoneNumber && formik.errors.phoneNumber
+                  ? "error"
+                  : "success"
+              }
+            >
+              <Input
+                addonBefore={prefixSelector}
+                onChange={(e) =>
+                  formik.setFieldValue("phoneNumber", e.target.value)
+                }
+                value={formik.values.phoneNumber}
+                onBlurCapture={formik.handleBlur}
+                onBlur={() => {
+                  setIsValid(
+                    Object.values(formik.errors).every(
+                      (val) => val === undefined
+                    )
+                  );
+                }}
+                style={{
+                  borderColor: !formik.touched.phoneNumber
+                    ? ""
+                    : formik.touched.phoneNumber && formik.errors.phoneNumber
+                    ? "red"
+                    : "green",
+                }}
+              />
+            </Form.Item>
+            {formik.errors.phoneNumber && (
+              <div style={{ color: "red" }}>{formik.errors.phoneNumber}</div>
+            )}
+          </div>
         </div>
-          <Button type="primary" htmlType="submit" disabled={!isValid || formik.isSubmitting} >
+          <Button type="primary"
+           htmlType="submit"
+           style={{marginTop: '1rem'}}
+           disabled={!isValid || formik.isSubmitting} >
             Submit
           </Button>
         <ArrowLeftOutlined
